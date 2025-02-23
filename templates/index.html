@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Translator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-file-pdf"></i> PDF Text Translator</h1>
+            <p>Upload a PDF and translate it into any language!</p>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" class="upload-form">
+            <div class="file-input-wrapper">
+                <input type="file" name="pdf_file" id="pdf_file" accept=".pdf" required>
+                <label for="pdf_file" class="file-label">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>Choose a PDF File</span>
+                </label>
+            </div>
+
+            <div class="language-select">
+                <i class="fas fa-globe"></i>
+                <select name="language" id="language">
+                    <option value="en">English</option>
+                    <option value="es">Spanish</option>
+                    <option value="fr">French</option>
+                    <option value="de">German</option>
+                    <option value="hi">Hindi</option>
+                </select>
+            </div>
+
+            <button type="submit" class="translate-button">
+                <i class="fas fa-language"></i> Translate Now
+            </button>
+        </form>
+
+        {% if translated_text %}
+        <div class="result-box">
+            <h2><i class="fas fa-comment-dots"></i> Translated Text</h2>
+            <div class="translated-text">
+                {% for line in translated_text.split('\n') %}
+                    <p>{{ line }}</p>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
